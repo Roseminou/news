@@ -13,7 +13,7 @@ exports.showSignin = (req, res) => {
 exports.handleSignin = (req, res) => {
     // 获取表单的数据
     const body = req.body;
-    console.log(body);
+    // console.log(body);
     // 先验证邮箱
     M_user.checkEmail(body.email, (err, data) => {
         if (err) {
@@ -35,6 +35,11 @@ exports.handleSignin = (req, res) => {
                 msg: "密码错误"
             })
         }
+        // 可以获取到正确的用户信息
+        // 使用session把data[0].nickname进行保存，在服务器段进行保存
+        req.session.user = data[0];
+        console.log(req.session.user);
+
         // 返回200状态吗
         res.send({
             code: 200,
