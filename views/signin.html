@@ -39,6 +39,24 @@
     </div>
     <script src="/node_modules/jquery/dist/jquery.js"></script>
     <script>
+        $("#signin_form").on("submit", function(ev) {
+            var formdata = $(this).serialize();
+            // 发送请求
+            $.post("/signin", formdata, function(data) {
+
+                if (data.code == 200) {
+                    // console.log(data.msg);
+                    window.location = "/";
+                } else {
+                    alert(data.msg);
+                }
+            })
+
+            // 取消默认提交
+            ev.preventDefault();
+            // return false;
+
+        });
     </script>
 </body>
 
